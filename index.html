@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>TypeEffect.js - Simple Typing Effect</title>
+
+        <!-- Tailwind CSS -->
+        <script src="https://cdn.tailwindcss.com"></script>
+
+        <!-- Prism.js for Syntax Highlighting -->
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" rel="stylesheet" />
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-javascript.min.js"></script>
+    </head>
+    <body class="bg-gray-100 text-gray-900">
+        <!-- Header -->
+        <header class="bg-blue-600 text-white p-8">
+            <div class="container mx-auto text-center">
+                <h1 class="text-4xl font-bold">TypeEffect.js</h1>
+                <p class="mt-2 text-xl">Vanilla JS type effect lib. <span class="mt-2 text-xl text-center" id="demo-typewriter"></span></p>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <main class="container mx-auto p-8">
+            <!-- Install Section -->
+            <section>
+                <h2 class="text-2xl font-semibold">How to Use:</h2>
+                <pre class="bg-gray-800 text-white rounded">
+        <code class="language-javascript">
+&lt;script src="https://raw.githubusercontent.com/Mika-IO/type-effect-js/refs/heads/main/type-effect.js"&gt;&lt;/script&gt;
+&lt;script&gt;
+    typeWriter("element-id", ["Text 1", "Text 2"], 150, true);
+&lt;/script&gt;
+        </code>
+        </pre>
+                <a href="https://github.com/Mika-IO/type-effect-js/archive/refs/heads/main.zip" class="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700">Download Library</a>
+                <p class="text-lg mt-8">Or add the library to your project via CDN:</p>
+                <pre class="bg-gray-800 text-white rounded">
+<code class="language-html">
+&lt;script src="https://raw.githubusercontent.com/Mika-IO/type-effect-js/refs/heads/main/type-effect.js"&gt;&lt;/script&gt;
+</code>
+      </pre>
+                <span class="mt-2 text-xl text-center" id="demo-typewriter"></span>
+
+                <br />
+                <br />
+                <br />
+            </section>
+        </main>
+
+        <!-- Footer -->
+        <footer class="bg-gray-200 text-gray-700 p-8 text-center">
+            <p>
+                Developed by <strong><a href="https://mikaio.dev" class="text-blue-600">mikaio.dev</a></strong> | <a href="https://github.com/Mika-IO" class="text-blue-600" target="_blank">GitHub</a>
+            </p>
+        </footer>
+
+        <!-- TypeWriter.js Library -->
+        <script src="https://raw.githubusercontent.com/Mika-IO/type-effect-js/refs/heads/main/type-effect.js"></script>
+
+        <script>
+            function typeWriter(elementId, words, speed, eraseEffect) {
+                let wordIndex = 0;
+                let charIndex = 0;
+                const element = document.getElementById(elementId);
+                element.textContent = "";
+
+                function type() {
+                    const currentWord = words[wordIndex];
+                    if (charIndex < currentWord.length) {
+                        element.textContent += currentWord.charAt(charIndex);
+                        charIndex++;
+                        setTimeout(type, speed);
+                    } else {
+                        setTimeout(erase, speed);
+                    }
+                }
+
+                function erase() {
+                    if (eraseEffect) {
+                        const currentWord = words[wordIndex];
+                        if (charIndex > 0) {
+                            element.textContent = currentWord.substring(0, charIndex - 1);
+                            charIndex--;
+                            setTimeout(erase, speed);
+                        } else {
+                            wordIndex = (wordIndex + 1) % words.length;
+                            setTimeout(type, speed);
+                        }
+                    }
+                }
+
+                type();
+            }
+            // Example usage on the page
+            typeWriter("demo-typewriter", ["Simple!", "Lightweight!", "Customizable!"], 150, true);
+        </script>
+    </body>
+</html>
